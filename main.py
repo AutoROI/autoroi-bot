@@ -359,9 +359,9 @@ async def recibir_anio(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         dolar_blue = obtener_dolar_blue()
         if dolar_blue:
-            await update.message.reply_text(f"💵 Dólar blue: ${dolar_blue} ARS\n🤖 Claude está analizando las oportunidades...")
+            await update.message.reply_text(f"💵 Dólar Blue: ${dolar_blue} ARS\nAutoROI está analizando las oportunidades...")
         else:
-            await update.message.reply_text("🤖 Claude está analizando las oportunidades...")
+            await update.message.reply_text("AutoROI está analizando las oportunidades...")
 
         respuesta_claude = filtrar_y_analizar(query, items_data, dolar_blue)
         if not respuesta_claude:
