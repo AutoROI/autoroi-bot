@@ -2,6 +2,8 @@ import os
 import re
 import requests
 import urllib.parse
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime, timezone
 from dotenv import load_dotenv
 from telegram import Update
@@ -16,6 +18,18 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 MARCA, MODELO, ANIO = range(3)
 ALERTA_MARCA, ALERTA_MODELO, ALERTA_ANIO = range(3, 6)
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'AutoROI Bot corriendo')
+    def log_message(self, format, *args):
+        pass
+
+def run_server():
+    server = HTTPServer(('0.0.0.0', 8080), Handler)
+    server.serve_forever()
 
 def obtener_dolar_blue():
     try:
@@ -524,6 +538,9 @@ async def post_init(app):
     print("Scheduler de alertas iniciado.")
 
 def main():
+    threading.Thread(target=run_server, daemon=True).start()
+    print("Servidor HTTP iniciado en puerto 8080")
+
     app = Application.builder().token(TOKEN).post_init(post_init).build()
 
     conv_buscar = ConversationHandler(
