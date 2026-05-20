@@ -370,7 +370,7 @@ async def mis_alertas(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mensaje = "🔔 *Tus alertas activas:*\n\n"
     for a in alertas:
         mensaje += f"🚗 {a['marca']} {a['modelo']} {a['anio']}\n"
-    await update.message.reply_text(mensaje, parse_mode='Markdown')
+    await update.message.reply_text(mensaje)
 
 async def cancelar(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Cancelado.")
