@@ -208,8 +208,8 @@ async def scrapear_meli(query):
             extra_http_headers={'Accept-Language': 'es-AR,es;q=0.9'}
         )
         page = await ctx.new_page()
-        await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-        await page.wait_for_timeout(6000)
+        await page.goto(url, wait_until="domcontentloaded", timeout=90000)
+        await page.wait_for_timeout(8000)
         html = await page.content()
         await browser.close()
 
